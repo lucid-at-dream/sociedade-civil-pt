@@ -5,3 +5,9 @@ WORKDIR /app
 COPY server/requirements.txt .
 RUN pip install -r requirements.txt && rm -f requirements.txt
 
+EXPOSE 5000
+
+COPY . .
+
+CMD ["python", "server/src/main.py"]
+
