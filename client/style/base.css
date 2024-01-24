@@ -1,0 +1,21 @@
+#shoutbox {
+    float: right;
+    max-width: 250px;
+}
+
+#shoutbox a {
+    max-width: 250px;
+    overflow-wrap: break-word;
+}
+
+#shoutbox .shout-row:nth-child(even) {
+    background-color: aqua;
+}
+
+#shoutbox .shout-row:nth-child(odd) {
+    background-color: bisque;
+}
+
+#shoutbox textarea {
+    resize: none;
+}

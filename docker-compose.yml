@@ -1,0 +1,29 @@
+
+version: '0.1'
+
+services:
+
+  socivil:
+    build:
+      context: .
+    volumes:
+      - .:/app
+    tty: true
+    command:
+      - sleep
+      - infinity
+    expose:
+      - 5000:5000
+
+  esdb:
+    image: eventstore/eventstore:23.10.0-jammy
+    hostname: "esdb"
+    tty: true
+    expose:
+      - 2113:2113
+      - 1113:1113
+    command:
+      - --insecure
+      - --run-projections=All
+      - --enable-atom-pub-over-http
+

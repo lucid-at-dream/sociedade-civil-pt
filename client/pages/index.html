@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<header>
+  <title>Sociedade Civil PT</title>
+</header>
+
+<body>
+
+  <div id="shoutbox">
+    <div id="shouts"></div>
+    <textarea id="shout" name="shout" maxlength="140"></textarea>
+    <button id="shout-btn" onclick="sendShout()">sadasf</button>
+  </div>
+
+  <!-- JQuery because life is precious -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"
+    integrity="sha256-lSjKY0/srUM9BE3dPm+c4fBo1dky2v27Gdjm2uoZaL0=" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/color/jquery.color-2.2.0.min.js"
+    integrity="sha256-aSe2ZC5QeunlL/w/7PsVKmV+fa0eDbmybn/ptsKHR6I=" crossorigin="anonymous"></script>
+
+  <!-- D3 for data driven stuff -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"
+    integrity="sha512-M7nHCiNUOwFt6Us3r8alutZLm9qMt4s9951uo8jqO4UwJ1hziseL6O3ndFyigx6+LREfZqnhHxYjKRJ8ZQ69DQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Socket.IO for web socket support -->
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"
+    integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz"
+    crossorigin="anonymous"></script>
+
+  <script src="scripts/shoutbox.js"></script>
+
+  <link rel="stylesheet" href="style/base.css">
+
+  <script>
+    getShouts();
+    var socket = io();
+    socket.on('shout', listenForShouts);
+  </script>
+</body>
+
+
+</html>

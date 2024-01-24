@@ -1,0 +1,4 @@
+esdbclient
+flask
+flask-swagger
+flask-socketio
