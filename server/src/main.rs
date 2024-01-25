@@ -12,7 +12,7 @@ async fn main() {
         // and_then create a `Future` that will simply wait N seconds...
         .and_then(sleepy);
 
-    warp::serve(routes).run(([127, 0, 0, 1], 5000)).await;
+    warp::serve(routes).run(([0, 0, 0, 0], 5000)).await;
 }
 
 async fn sleepy(Seconds(seconds): Seconds) -> Result<impl warp::Reply, Infallible> {
