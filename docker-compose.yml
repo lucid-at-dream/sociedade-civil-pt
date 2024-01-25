@@ -8,18 +8,4 @@ services:
       context: .
     expose:
       - 5000:5000
-    depends_on:
-      esdb:
-        condition: service_healthy
-
-  esdb:
-    image: eventstore/eventstore:23.10.0-jammy
-    hostname: "esdb"
-    expose:
-      - 2113:2113
-      - 1113:1113
-    command:
-      - --insecure
-      - --run-projections=All
-      - --enable-atom-pub-over-http
 
