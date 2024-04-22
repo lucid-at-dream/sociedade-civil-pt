@@ -1,23 +1,36 @@
-#![deny(warnings)]
+// #![deny(warnings)]
 
 use std::convert::Infallible;
 use std::str::FromStr;
 use std::time::Duration;
 use warp::Filter;
+use rust_bert::pipelines::question_answering::{QaInput, QuestionAnsweringModel};
 
 #[tokio::main]
 async fn main() {
-    // Match `/:Seconds`...
-    let routes = warp::path::param()
-        // and_then create a `Future` that will simply wait N seconds...
-        .and_then(sleepy);
 
-    warp::serve(routes).run(([0, 0, 0, 0], 5000)).await;
+    let question = warp::path::param()
+        .and_then(answer_question);
+
+    warp::serve(question).run(([0, 0, 0, 0], 5000)).await;
 }
 
 async fn sleepy(Seconds(seconds): Seconds) -> Result<impl warp::Reply, Infallible> {
     tokio::time::sleep(Duration::from_secs(seconds)).await;
     Ok(format!("I waited {} seconds!", seconds))
+}
+
+async fn answer_question(question: String) -> Result<impl warp::Reply, warp::Rejection> {
+
+    print!("Got question: {}", question);
+    let qa_model = QuestionAnsweringModel::new(Default::default()).unwrap();
+
+    let question = String::from(question);
+    let context = String::from("A terra é redonda. Há lixo no chão. O Batman é português.");
+
+    let answers = qa_model.predict(&[QaInput { question, context }], 1, 32);
+
+    Ok(format!("Ans: {}", answers[0][0].answer))
 }
 
 /// A newtype to enforce our maximum allowed seconds.
